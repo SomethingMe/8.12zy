@@ -1,0 +1,42 @@
+编写一个TCP时间服务器
+你的服务器应该监听一个端口，以获取一些TCP的连接，这个端口会经由第一个命令行参数
+传递给你的程序，针对每一个TCP连接，你都必须写入当前的日期和24小时制的时间:
+    YYYY-MM-DD hh:mm
+然后紧接着是一个换行符
+月份、日、小时、分钟必须用0填充为固定的两位数
+    2013-07-06 17:42
+
+##提示
+
+这次练习中，我们将会创建一个TCP服务器，这里将不会涉及到任何HTTP的事情。因此
+我们只需要使用NET这个NODE核心模块就可以了。它包含了所有的基础网络功能。
+
+net模块拥有一个名叫net.createServer()的方法，它会接收一个回调函数，和node
+中其他的回调函数不同，createServer()所用的回调函数会被调用多次。你的服务器
+每收到一个TCP连接，都会调用一次这个回调函数。
+    function callback(soket){}
+net.createServer()也会返回一个TCP服务器的实例，你必须调用server.listen(portNumber)
+来让你的服务器开始监听一个特定的端口.
+一个典型的NODE TCP服务器将会如下所示：
+    var net = require('net')
+    var server = net.createServer(function(socket){
+        //socket 处理逻辑
+    })
+    server.listen(8000)
+记住，请一定监听由第一个命令行参数指定的端口。
+socket对象包含了很多关于各个连接的信息，但是它同时也是一个node双工流，所以，它既可以读，也
+可以写，对这个练习来说，我们只需要对socket写数据和关闭它就可以了.
+使用socket.write(data)可以写数据到socket中，用socket.end()可以关闭一个socket
+另外，.end()方法也可以接收一个数据对象作为参数，因此，你可以使用socket.end(data)
+来完成写数据和关闭两个操作.
+
+要创建一个日期，你需要使用new Date()
+并且自定义一个格式，这些方法会很有用：
+    date.getFullYear()
+    date.getMonth()
+    date.getDate()
+    date.getHours()
+    date.getMinutes()
+或者你可以使用strftime这个模块,其中strftime(fmt,date)这个方法可以接收一个
+和unix命令date相似的时间日期格式.
+

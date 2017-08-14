@@ -1,0 +1,22 @@
+﻿编写一个程序来发起一个HTTP GET请求，所请求的URL为命令行参数的第一个.
+然后将每一个 data事件所得的数据，以字符串的形式在终端的新的一行打印出来.
+
+##提示
+完成这个练习，你需要使用node.js核心模块之一:http
+http.get()方法是用来发起简单的GET请求的快捷方式，使用这个方法可以一定程度简化
+你的程序.http.get()第一个参数是你想要GET的URL，第二个参数则是回调函数.
+
+与其他的回调函数不同，这个回调函数有如下这些特征:
+    function callback(response){}
+response对象是一个node的Stream类型的对象，你可以将 node stream
+当做一个会触发一些事件的对象，其中我们通常所需要关心的事件有三个：data,error,end
+你可以像这样来监听一个事件:
+    response.on('data',function(data){})
+data事件会在每个数据块到达并已经可以对其进行一些处理的时候被触发。数据块的大小
+将取决于数据源。
+你从http.get()所获得的response对象/stream还有一个setEncoding()方法
+如果你调用这个方法,并为其制定参数为utf8,那么，data事件中会传递字符串,
+而不是标准的node buffer对象，这样，你也不用再手动将buffer对象转化为字符串
+
+node test8.js http://www.baidu.com
+

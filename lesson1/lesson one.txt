@@ -1,0 +1,10 @@
+编写一个程序，在终端中输出打印出"hello wolrd"
+
+提示：
+要编写一个 node.js程序，你只需要创建一个后缀为.js的文件.然后用
+javascript去编写即可.完成后，你就可以通过命令行node 命令去运行它
+
+例如: node program.js
+
+和浏览器一样，你可以在你的node.js程序中书写console:
+console.log('text')
